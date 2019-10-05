@@ -1,20 +1,32 @@
 const Genre = require('../models/Genre');
+const SearchWord = require('../utils/SearchWord');
+const ResponseMessage = require('../utils/ResponseMessage');
 
 module.exports = {
   //Lista os gêneros cinematográficos
   async listGenres(req, res) {
+    //Se os valores não forem informados, considera os da direita como default
     const page = Number(req.query.page) || 1;
     const size = Number(req.query.size) || 10;
     const search = req.query.search || '';
-
+    
     try {
-      //const genres = await Genre.find();
       const genres = await Genre.find().skip((page - 1) * size).limit(size);
-
-      return res.json(genres);
+      
+      //Filtra pelo search caso seja informado o valor
+      if (search !== '') {
+        let genresFiltered = [];
+        for (let i = 0; i < genres.length; i++) {
+          if (SearchWord.checkIfStringExists(search, genres[i].description))
+            genresFiltered.push(genres[i]);
+        }        
+        return ResponseMessage.getResponseMessageOK(genresFiltered, res);
+      }
+      
+      return ResponseMessage.getResponseMessageOK(genres, res);
     }
-    catch(ex) {
-      return res.status(500).json({ error: 'Erro durante a listagem - server side' });
+    catch(error) {
+      return ResponseMessage.getResponseErrorServerSide(error, res);
     }
   },
 
@@ -23,54 +35,47 @@ module.exports = {
     const { description } = req.body;
 
     if (!description) {
-      return res.status(400).json({ error: 'Parâmetros inválidos - client side' });
+      return ResponseMessage.getResponseErrorClientSide(400, res);
     }
 
     try {
       const genre = await Genre.create({ description });
-
-      return res.json(genre);
+      return ResponseMessage.getResponseMessageOK(genre, res);
     }    
     catch(ex) {
-      return res.status(500).json({ error: 'Erro durante a criação - server side' });
+      return ResponseMessage.getResponseErrorServerSide(error, res);
     }
   },
   
   //Detalhe de gênero cinematográfico
   async getGenre(req, res) {
-    const genreId = req.params.genreId;
+    const { genreId } = req.params;
 
     try {
       const genre = await Genre.findById(genreId);
-
-      return res.json(genre);
+      return ResponseMessage.getResponseMessageOK(genre, res); 
     } 
     catch(ex) {
-      return res.status(500).json({ error: 'Erro durante a pesquisa - server side' });
+      return ResponseMessage.getResponseErrorServerSide(error, res);
     }
   },
 
   //Atualização de gênero cinematográfico
   async updateGenre(req, res) {
-    const genreId = req.params.genreId;
+    const { genreId } = req.params;
     const { description } = req.body;
     const options = { new: true }; //mostra o dado atualizado
 
     if (!description) {
-      return res.status(400).json({ error: 'Parâmetros inválidos - client side' });
+      return ResponseMessage.getResponseErrorClientSide(400, res);
     }
 
     try {      
       const genre = await Genre.findByIdAndUpdate(genreId, { description }, options);
-
-      // if (!genre) {
-      //   return res.status(400).json({ error: 'Parâmetros invalidos - client side' });
-      // }
-
-      return res.json(genre);
+      return ResponseMessage.getResponseMessageOK(genre, res);
     }
     catch(ex) {
-      return res.status(500).json({ error: 'Erro durante a atualização - server side' });
+      return ResponseMessage.getResponseErrorServerSide(error, res);
     }    
   }
 }
