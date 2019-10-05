@@ -21,7 +21,7 @@ module.exports = {
     });
   },
 
-  getResponseMessageOKDelete() {
+  getResponseMessageOKDelete(res) {
     return res.status(204).json({message: 'Data has been removed!'});
   },
 

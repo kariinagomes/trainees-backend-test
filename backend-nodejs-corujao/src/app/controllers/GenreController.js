@@ -42,7 +42,7 @@ module.exports = {
       const genre = await Genre.create({ description });
       return ResponseMessage.getResponseMessageOK(genre, res);
     }    
-    catch(ex) {
+    catch(error) {
       return ResponseMessage.getResponseErrorServerSide(error, res);
     }
   },
@@ -55,7 +55,7 @@ module.exports = {
       const genre = await Genre.findById(genreId);
       return ResponseMessage.getResponseMessageOK(genre, res); 
     } 
-    catch(ex) {
+    catch(error) {
       return ResponseMessage.getResponseErrorServerSide(error, res);
     }
   },
@@ -74,7 +74,7 @@ module.exports = {
       const genre = await Genre.findByIdAndUpdate(genreId, { description }, options);
       return ResponseMessage.getResponseMessageOK(genre, res);
     }
-    catch(ex) {
+    catch(error) {
       return ResponseMessage.getResponseErrorServerSide(error, res);
     }    
   }

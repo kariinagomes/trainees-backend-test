@@ -29,26 +29,23 @@ module.exports = {
       
       return ResponseMessage.getResponseMessageOK(artists, res);
     } 
-    catch(ex) {
+    catch(error) {
       return ResponseMessage.getResponseErrorServerSide(error, res);
     }
   },
 
   //Cadastra um novo artista
   async addArtist(req, res) {
-    
+
     if (!CheckParams.checkIfValidParamsArtist(req.body)) {
       return ResponseMessage.getResponseErrorClientSide(400, res);
     }
 
     try {
-      const artist = await Artist.create({
-        firstName, lastName, dateOfBirth
-      });
-
+      const artist = await Artist.create(req.body);
       return ResponseMessage.getResponseMessageOK(artist, res);
     }
-    catch(ex) {
+    catch(error) {
       return ResponseMessage.getResponseErrorServerSide(error, res);
     }
   },
@@ -61,7 +58,7 @@ module.exports = {
       const artist = await Artist.findById(artistId);
       return ResponseMessage.getResponseMessageOK(artist, res);
     } 
-    catch(ex) {
+    catch(error) {
       return ResponseMessage.getResponseErrorServerSide(error, res);
     }
   },
@@ -82,7 +79,7 @@ module.exports = {
 
       return ResponseMessage.getResponseMessageOK(artist, res);
     }
-    catch(ex) {
+    catch(error) {
       return ResponseMessage.getResponseErrorServerSide(error, res);
     }    
   },
@@ -103,7 +100,7 @@ module.exports = {
 
       return ResponseMessage.getResponseMessageOK(movies, res);
     } 
-    catch(ex) {
+    catch(error) {
       return ResponseMessage.getResponseErrorServerSide(error, res);
     }
   },

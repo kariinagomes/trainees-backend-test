@@ -29,7 +29,7 @@ module.exports = {
 
       return ResponseMessage.getResponseMessageOK(movies, res);
     }
-    catch(ex) {
+    catch(error) {
       return ResponseMessage.getResponseErrorServerSide(error, res);
     }    
   },
@@ -51,7 +51,7 @@ module.exports = {
       
       return ResponseMessage.getResponseMessageOK(movie, res);
     }
-    catch(ex) {
+    catch(error) {
       return ResponseMessage.getResponseErrorServerSide(error, res);
     }   
   },
@@ -72,7 +72,7 @@ module.exports = {
 
       return ResponseMessage.getResponseMessageOK(movie, res);
     } 
-    catch(ex) {
+    catch(error) {
       return ResponseMessage.getResponseErrorServerSide(error, res);
     }
   },
@@ -94,7 +94,7 @@ module.exports = {
 
       return ResponseMessage.getResponseMessageOK(movie, res);
     }
-    catch(ex) {
+    catch(error) {
       return ResponseMessage.getResponseErrorServerSide(error, res);
     }    
   },
@@ -106,18 +106,18 @@ module.exports = {
     if(!movieId) {
       return ResponseMessage.getResponseErrorClientSide(400, res);
     }
-    
+
     try {
       const result = await Movie.deleteOne({ _id: movieId});
-
+ 
       if (result.deletedCount === 0) {
         return ResponseMessage.getResponseErrorClientSide(404, res);
       } 
       else {
-        return ResponseMessage.getResponseMessageOKDelete();
+        return ResponseMessage.getResponseMessageOKDelete(res);
       }
     }
-    catch(ex) {
+    catch(error) {
       return ResponseMessage.getResponseErrorServerSide(error, res);
     }
   }
