@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  node:
+    container_name: node-corujao
+    build: .
+    image: karinagomes/node-corujao
+    ports:
+      - "5000:5000"
+    networks:
+      - backendcorujao-network
+    depends_on:
+      - "mongodb"
+  
+  mongodb:
+    container_name: mongo-corujao
+    image: mongo
+    networks: 
+      - backendcorujao-network
+
+networks: 
+  backendcorujao-network:
+    driver: bridge
