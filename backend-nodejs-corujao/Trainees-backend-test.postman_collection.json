@@ -1,0 +1,431 @@
+{
+	"info": {
+		"_postman_id": "3e8620d7-56e0-4c8c-98cc-da16b5dfa09d",
+		"name": "Trainees-backend-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Genres",
+			"item": [
+				{
+					"name": "listGenres",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/genres?page=1&size=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"genres"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "search",
+									"value": "Çomédia",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addGenre",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"description\": \"Comédia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/genres",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"genres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getGenre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/genres/5d954bb69f350e2128fd4cb8",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"genres",
+								"5d954bb69f350e2128fd4cb8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateGenre",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"description\": \"Aventura\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/genres/5d980376936d7238843e2afc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"genres",
+								"5d980376936d7238843e2afc"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Artists",
+			"item": [
+				{
+					"name": "listArtists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/artists?page=1&size=10&search=Ver",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"artists"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "search",
+									"value": "Ver"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getArtist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/artists/5d968ebbed3d951afcf1ece6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"artists",
+								"5d968ebbed3d951afcf1ece6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateArtist",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"firstName\": \"Robert\",\n     \"lastName\": \"Downey Junior.\",\n     \"dateOfBirth\": \"1965-04-04T00:00:00.000Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/artists/5d9c165016973615e4c89981",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"artists",
+								"5d9c165016973615e4c89981"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addArtist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Peter\",\n\t\"lastName\": \"Sarsgaad\",\n\t\"dateOfBirth\" : \"1971-03-07T00:00:00-00:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/artists",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"artists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getArtistFilmography",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/artists/5d968ebbed3d951afcf1ece6/filmography",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"artists",
+								"5d968ebbed3d951afcf1ece6",
+								"filmography"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "listMovies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/movies?page=1&size=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "search",
+									"value": "capitao",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addMovie",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Capitão América: O Primeiro Vingador\",\n\t\"releaseYear\": 2011,\n\t\"genres\": [\n\t\t{ \"_id\": \"5d9be116d837a900114d3ec8\" },\n\t\t{ \"_id\": \"5d9bed5ad837a900114d3ed1\" }\n\t],\n\t\"director\": { \"_id\": \"5d9c9f03d837a900114d3f65\" },\n\t\"cast\": [\n\t\t{ \"_id\": \"5d9c165016973615e4c89981\" },\n        { \"_id\": \"5d9c060fa3d5502a7c463caf\" }\n\t]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/movies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMovie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/movies/5d96a64399958a47cc2d5056",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies",
+								"5d96a64399958a47cc2d5056"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateMovie",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"A órfã\",\n\t\"releaseYear\": 2009,\n\t\"genres\": [\n\t\t{ \"_id\": \"5d96a8aa7eb2f927e8960e9b\" },\n\t\t{ \"_id\": \"5d954bb69f350e2128fd4cb8\" }\n\t],\n\t\"director\": { \"_id\": \"5d96a8207eb2f927e8960e99\" },\n\t\"cast\": [\n\t\t{ \"_id\": \"5d968ebbed3d951afcf1ece6\" },\n        { \"_id\": \"5d98101880f85638e8415e2f\" },\n        { \"_id\": \"5d96a8527eb2f927e8960e9a\" }\n\t]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/movies/5d96a64399958a47cc2d5056",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies",
+								"5d96a64399958a47cc2d5056"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeMovie",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/movies/5d9c165116973615e4c89989",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies",
+								"5d9c165116973615e4c89989"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
