@@ -1,7 +1,6 @@
 const Movie = require('../models/Movie');
 const SearchWord = require('../utils/SearchWord');
 const ResponseMessage = require('../utils/ResponseMessage');
-const CheckParams = require('../utils/CheckParams');
 
 //Lista os filmes cinematográficos
 module.exports = {
@@ -17,7 +16,7 @@ module.exports = {
         .populate('director')
         .populate('cast');
 
-      //Filtra pelo search caso seja informado o valor
+      //Filtra pelo search caso esse parâmetro seja informado
       if (search !== '') {
         let moviesFiltered = [];
         for (let i = 0; i < movies.length; i++) {
@@ -36,13 +35,15 @@ module.exports = {
 
   //Cadastra um novo filme
   async addMovie(req, res) {
-    if(!CheckParams.checkIfValidParamsMovie(req.body)) {
+    const { title } = req.body;
+
+    // Não permitir adicionar um filme se o título estiver em branco
+    if(!title) {
       return ResponseMessage.getResponseErrorClientSide(400, res);
     }
     
     try {
       const movie = await Movie.create(req.body);
-      //const movie = await Movie.create({ title, releaseYear, genres, director, cast });
       
       await movie.populate('genres')
         .populate('director')
@@ -80,9 +81,11 @@ module.exports = {
   //Atualização do filme
   async updateMovie(req, res) {
     const { movieId } = req.params;
+    const { title } = req.body;
     const options = { new: true }; 
 
-    if(!movieId || !CheckParams.checkIfValidParamsMovie(req.body)) {
+    // Não permitir atualizar o título do filme para vazio
+    if(!movieId || !title) {
       return ResponseMessage.getResponseErrorClientSide(400, res);
     }
 

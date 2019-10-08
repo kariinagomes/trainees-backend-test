@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
 const ArtistSchema = new mongoose.Schema({
-  firstName: String,
+  firstName: {
+    type: String,
+    required: true
+  },
   lastName: String,
   dateOfBirth: Date,
 }, {

@@ -13,7 +13,7 @@ module.exports = {
     try {
       const genres = await Genre.find().skip((page - 1) * size).limit(size);
       
-      //Filtra pelo search caso seja informado o valor
+      //Filtra pelo search caso esse parâmetro seja informado
       if (search !== '') {
         let genresFiltered = [];
         for (let i = 0; i < genres.length; i++) {
@@ -34,6 +34,7 @@ module.exports = {
   async addGenre(req, res) {
     const { description } = req.body;
 
+    // Não permitir adicionar um gênero se a descrição estiver em branco
     if (!description) {
       return ResponseMessage.getResponseErrorClientSide(400, res);
     }
@@ -51,6 +52,10 @@ module.exports = {
   async getGenre(req, res) {
     const { genreId } = req.params;
 
+    if (!genreId) {
+      return ResponseMessage.getResponseErrorClientSide(400, res);
+    }
+    
     try {
       const genre = await Genre.findById(genreId);
       return ResponseMessage.getResponseMessageOK(genre, res); 
@@ -66,7 +71,8 @@ module.exports = {
     const { description } = req.body;
     const options = { new: true }; //mostra o dado atualizado
 
-    if (!description) {
+    // Não permitir atualizar a descrição do gênero para vazio
+    if (!genreId || !description) {
       return ResponseMessage.getResponseErrorClientSide(400, res);
     }
 

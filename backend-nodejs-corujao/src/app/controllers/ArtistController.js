@@ -2,7 +2,6 @@ const Artist = require('../models/Artist');
 const Movie = require('../models/Movie');
 const SearchWord = require('../utils/SearchWord');
 const ResponseMessage = require('../utils/ResponseMessage');
-const CheckParams = require('../utils/CheckParams');
 
 module.exports = {
   //Lista os artistas
@@ -15,7 +14,8 @@ module.exports = {
     try {
       const artists = await Artist.find().skip((page - 1) * size).limit(size);
 
-      //Filtra pelo search caso seja informado o valor
+      //Filtra pelo search caso esse parâmetro seja informado
+      //(busca tanto no primeiro nome do artista quanto no último)
       if (search !== '') {
         let artistsFiltered = [];
         for (let i = 0; i < artists.length; i++) {
@@ -36,8 +36,10 @@ module.exports = {
 
   //Cadastra um novo artista
   async addArtist(req, res) {
-
-    if (!CheckParams.checkIfValidParamsArtist(req.body)) {
+    const { firstName } = req.body;
+  
+    // Não permitir adicionar um artista caso o primeiro nome estiver em branco
+    if (!firstName) {
       return ResponseMessage.getResponseErrorClientSide(400, res);
     }
 
@@ -54,6 +56,10 @@ module.exports = {
   async getArtist(req, res) {
     const { artistId } = req.params;
 
+    if (!artistId) {
+      return ResponseMessage.getResponseErrorClientSide(400, res);
+    }
+
     try {
       const artist = await Artist.findById(artistId);
       return ResponseMessage.getResponseMessageOK(artist, res);
@@ -66,9 +72,11 @@ module.exports = {
   //Atualização do artista
   async updateArtist(req, res) {
     const { artistId } = req.params;
+    const { firstName } = req.body;
     const options = { new: true }; 
 
-    if (!CheckParams.checkIfValidParamsArtist(req.body)) {
+    // Não permitir atualizar o nome de um artista para vazio
+    if (!artistId || !firstName) {
       return ResponseMessage.getResponseErrorClientSide(400, res);
     }
 

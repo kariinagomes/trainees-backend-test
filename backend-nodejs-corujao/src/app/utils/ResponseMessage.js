@@ -26,7 +26,7 @@ module.exports = {
   },
 
   getResponseErrorClientSide(status, res) {
-    let type = 'Cliente side error';
+    let type = 'Client side error';
     let error = '';
 
     if (status === 400) {

@@ -7,7 +7,10 @@ const mongoose = require('mongoose');
  * que é apresentado no exemplo do swagger.
  */
 const MovieSchema = new mongoose.Schema({
-  title: String,
+  title: {
+    type: String,
+    required: true
+  },
   releaseYear: Number,
   genres: [{
     type: mongoose.Schema.Types.ObjectId,
