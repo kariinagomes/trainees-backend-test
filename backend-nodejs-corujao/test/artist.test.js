@@ -1,10 +1,12 @@
+require('dotenv/config');
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const should = chai.should();
 
 chai.use(chaiHttp);
 
-const base_url = 'http://192.168.99.100:5000';
+const server = process.env.SERVER_TEST;
 const route = '/artists';
 
 var artistId = ''; 
@@ -12,7 +14,7 @@ var artistId = '';
 describe('Artists', () => {
   describe('POST -> /artists', () => {
     it('should add a new artist', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .post(route)
         .send({
           firstName: 'Robert',
@@ -33,7 +35,7 @@ describe('Artists', () => {
     });
 
     it('should not accept to add a new artist without first name', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .post(route)
         .send({
           firstName: '',
@@ -56,7 +58,7 @@ describe('Artists', () => {
 
   describe('GET -> /artists', () => {
     it('should list all artists with default values as parameters', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .get(route)
         .end((err, res) => {
           res.should.have.status(200);
@@ -71,7 +73,7 @@ describe('Artists', () => {
 
     it('should list all artists with filled search value as parameter', (done) => {
       let search = 'robert';
-      chai.request(base_url)
+      chai.request(server)
         .get(route)
         .query({search: `${search}`})
         .end((err, res) => {
@@ -88,7 +90,7 @@ describe('Artists', () => {
 
   describe('GET -> /artists/{artistId}', () => {
     it('should get artist by id', (done) => { 
-      chai.request(base_url)
+      chai.request(server)
         .get(`${route}/${artistId}`)
         .end((err, res) => {          
           res.should.have.status(200);
@@ -106,7 +108,7 @@ describe('Artists', () => {
 
   describe('GET -> /artists/{artistId}/filmography', () => {
     it('should get filmography by artist id', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .get(`${route}/${artistId}/filmography`)
         .end((err, res) => {
           res.should.have.status(200);
@@ -124,7 +126,7 @@ describe('Artists', () => {
 
   describe('PUT -> /artists/{artistId}', () => {
     it('should update a artist', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .put(`${route}/${artistId}`)
         .send({
           firstName: 'Robert',
@@ -143,7 +145,7 @@ describe('Artists', () => {
     });
 
     it('should not accept to update a artist without description', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .put(`${route}/${artistId}`)
         .send({
           firstName: '',

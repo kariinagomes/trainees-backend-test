@@ -4,7 +4,7 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-const base_url = 'http://192.168.99.100:5000';
+const server = process.env.SERVER_TEST;
 const route = '/movies';
 
 var movieId = '';
@@ -12,13 +12,13 @@ var movieId = '';
 describe('Movies', () => {
   describe('POST -> /movies', () => {
     it('should add a new movie', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .get('/genres')
         .end((errorGenre, responseGenre) => {
-          chai.request(base_url)
+          chai.request(server)
             .get('/artists')
             .end((errorArtist, responseArtist) => {
-              chai.request(base_url)
+              chai.request(server)
                 .post(route)
                 .send({        
                   title: 'Homem Ferro',
@@ -44,13 +44,13 @@ describe('Movies', () => {
     });
 
     it('should not accept to add a new movie without title', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .get('/genres')
         .end((errorGenre, responseGenre) => {
-          chai.request(base_url)
+          chai.request(server)
             .get('/artists')
             .end((errorArtist, responseArtist) => {
-              chai.request(base_url)
+              chai.request(server)
                 .post(route)
                 .send({        
                   title: '',
@@ -76,7 +76,7 @@ describe('Movies', () => {
 
   describe('GET -> /movies', () => {
     it('should list all movies with default values as parameters', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .get(route)
         .end((err, res) => {
           res.should.have.status(200);
@@ -91,7 +91,7 @@ describe('Movies', () => {
 
     it('should list all movies with filled search value as parameter', (done) => {
       let search = 'ferro';
-      chai.request(base_url)
+      chai.request(server)
         .get(route)
         .query({search: `${search}`})
         .end((err, res) => {
@@ -108,7 +108,7 @@ describe('Movies', () => {
 
   describe('GET -> /movies/{movieId}', () => {
     it('should get movie by id', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .get(`${route}/${movieId}`)
         .end((err, res) => {          
           res.should.have.status(200);
@@ -124,13 +124,13 @@ describe('Movies', () => {
 
   describe('PUT -> /movies/{movieId}', () => {
     it('should update a movie', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .get('/genres')
         .end((errorGenre, responseGenre) => {
-          chai.request(base_url)
+          chai.request(server)
             .get('/artists')
             .end((errorArtist, responseArtist) => {
-              chai.request(base_url)
+              chai.request(server)
                 .post(route)
                 .send({        
                   title: 'Homem de Ferro',
@@ -155,13 +155,13 @@ describe('Movies', () => {
     });
 
     it('should not accept to update a movie without title', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .get('/genres')
         .end((errorGenre, responseGenre) => {
-          chai.request(base_url)
+          chai.request(server)
             .get('/artists')
             .end((errorArtist, responseArtist) => {
-              chai.request(base_url)
+              chai.request(server)
                 .post(route)
                 .send({        
                   title: '',
@@ -187,7 +187,7 @@ describe('Movies', () => {
 
   describe('DELETE -> /movies/{movieId}', () => {
     it('should delete movie by id', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .delete(`${route}/${movieId}`)
         .end((err, res) => {         
           res.should.have.status(204);
@@ -196,7 +196,7 @@ describe('Movies', () => {
     });
 
     it('should return status 404 when not find movie id', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .delete(`${route}/111111111111111111111111`)
         .end((err, res) => {         
           res.should.have.status(404);

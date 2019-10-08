@@ -4,7 +4,7 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-const base_url = 'http://192.168.99.100:5000';
+const server = process.env.SERVER_TEST;
 const route = '/genres';
 
 var genreId = '';
@@ -12,7 +12,7 @@ var genreId = '';
 describe('Genres', () => {
   describe('POST -> /genres', () => {
     it('should add a new genre', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .post(route)
         .send({
           description: 'Ficção científica'
@@ -30,7 +30,7 @@ describe('Genres', () => {
     });
 
     it('should not accept to add a new genre without description', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .post(route)
         .send({
           description: ''
@@ -51,7 +51,7 @@ describe('Genres', () => {
 
   describe('GET -> /genres', () => {
     it('should list all genres with default values as parameters', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .get(route)
         .end((err, res) => {
           res.should.have.status(200);
@@ -66,7 +66,7 @@ describe('Genres', () => {
 
     it('should list all genres with filled search value as parameter', (done) => {
       const search = 'ficcao';
-      chai.request(base_url)
+      chai.request(server)
         .get(route)
         .query({search: `${search}`})
         .end((err, res) => {
@@ -83,7 +83,7 @@ describe('Genres', () => {
 
   describe('GET -> /genres/{genreId}', () => {
     it('should get genre by id', (done) => {     
-      chai.request(base_url)
+      chai.request(server)
         .get(`${route}/${genreId}`)
         .end((err, res) => {          
           res.should.have.status(200);
@@ -101,7 +101,7 @@ describe('Genres', () => {
 
   describe('PUT -> /genres/{genreId}', () => {
     it('should update a genre', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .put(`${route}/${genreId}`)
         .send({
           description: 'Ação'
@@ -119,7 +119,7 @@ describe('Genres', () => {
     });
 
     it('should not accept to update a genre without description', (done) => {
-      chai.request(base_url)
+      chai.request(server)
         .put(`${route}/${genreId}`)
         .send({
           description: ''
