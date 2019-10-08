@@ -194,5 +194,14 @@ describe('Movies', () => {
           done();
         }); 
     });
-  });
+
+    it('should return status 404 when not find movie id', (done) => {
+      chai.request(base_url)
+        .delete(`${route}/111111111111111111111111`)
+        .end((err, res) => {         
+          res.should.have.status(404);
+          done();
+        }); 
+    });
+  });  
 });
