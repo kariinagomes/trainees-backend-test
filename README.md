@@ -1,50 +1,41 @@
-## Instructions to run the project:
+## Instruções para rodar o projeto:
 
-### Requirements:
+### Pré requisitos:
   - nodejs
   - npm
+  - docker e docker-compose
 
-### Development environment:
-  - Clone this repository
-  - Access backend-nodejs-corujao folder:  
+### Ambiente de desenvolvimento:
+  - Clonar esse repositório
+  - Acessar a pasta backend-nodejs-corujao:  
     ```
     cd teste-backend/backend-nodejs-corujao
     ```
-  
-  - Install dependencies:  
+  - Instalar dependências:  
     ```
-    npm install or yarn install
+    npm install ou yarn install
     ```
-    
-  - Build containers (nodejs and mongodb):  
+  - Construir as imagens descritas no docker compose (nodejs and mongodb):  
     ```
     docker-compose build
     ```    
-  - Create and start containers (nodejs and mongodb):    
+  - Criar e iniciar os containers (nodejs and mongodb):    
     ```
-    docker-compose up
+    docker-compose up -d
     ```    
-  - Run the project:  
+  - Executar os testes:  
     ```
-    npm start or yarn start
-    ```    
-  - Or run the project using nodemon:  
-    ```
-    npm dev or yarn dev
-    ```    
-  - Execute tests:  
-    ```
-    npm test or yarn test
+    npm test ou yarn test
     ```
     
-#### Libraries installed:
+#### Dependências instaladas:
 
-  - Dependencies: 
+  - Dependências: 
     - express
     - mongoose
     - dotenv
 
-  - Dev dependencies:
+  - Dependências de desenvolvimento:
     - nodemon    
     - mocha
     - chai
