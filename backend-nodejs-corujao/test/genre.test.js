@@ -21,6 +21,8 @@ describe('Genres', () => {
           res.should.have.status(200);
           res.should.be.json;
           res.body.record.should.be.a('object');
+          res.body.record.should.have.property('_id');
+          res.body.record.should.have.property('description');
           done();
           genreId = res.body.record._id;
           // console.log('\n***************************');
@@ -41,10 +43,7 @@ describe('Genres', () => {
           res.body.should.be.a('object');
           res.body.should.have.property('type');
           res.body.should.have.property('type', 'Client side error');
-          done();
-          // console.log('\n***************************');
-          // console.log(res.body.record);
-          // console.log('***************************\n');          
+          done();          
         }); 
     });
   });
@@ -110,7 +109,8 @@ describe('Genres', () => {
           res.should.have.status(200);
           res.should.be.json;
           res.body.record.should.be.a('object');
-          //res.body.record.should.have.property('description', genre.description);
+          res.body.record.should.have.property('_id');
+          res.body.record.should.have.property('description');
           done();
           // console.log('\n***************************');
           // console.log(res.body.record);

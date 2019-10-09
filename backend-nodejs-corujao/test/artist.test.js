@@ -25,7 +25,8 @@ describe('Artists', () => {
           res.should.have.status(200);
           res.should.be.json;
           res.body.record.should.be.a('object');
-          //res.body.record.should.have.property('firstName', artist.firstName);            
+          res.body.record.should.have.property('_id');
+          res.body.record.should.have.property('firstName');
           done();
           artistId = res.body.record._id;
           // console.log('\n***************************');
@@ -48,10 +49,7 @@ describe('Artists', () => {
           res.body.should.be.a('object');
           res.body.should.have.property('type');
           res.body.should.have.property('type', 'Client side error');
-          done();
-          // console.log('\n***************************');
-          // console.log(res.body.record); //deve retornar undefined
-          // console.log('***************************\n');          
+          done();          
         }); 
     });
   });
@@ -137,6 +135,8 @@ describe('Artists', () => {
           res.should.have.status(200);
           res.should.be.json;
           res.body.should.be.a('object');
+          res.body.record.should.have.property('_id');
+          res.body.record.should.have.property('firstName');
           done();
           // console.log('\n***************************');
           // console.log(res.body.record);
@@ -159,9 +159,6 @@ describe('Artists', () => {
           res.body.should.have.property('type');
           res.body.should.have.property('type', 'Client side error');
           done();
-          // console.log('\n***************************');
-          // console.log(res.body.record); //retorna undefined
-          // console.log('***************************\n');
         }); 
     });
   });

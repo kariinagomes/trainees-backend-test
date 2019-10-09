@@ -33,6 +33,8 @@ describe('Movies', () => {
                   res.should.have.status(200);
                   res.should.be.json;
                   res.body.record.should.be.a('object');
+                  res.body.record.should.have.property('_id');
+                  res.body.record.should.have.property('title');
                   done();
                   movieId = res.body.record._id;
                   // console.log('\n***************************');
@@ -145,6 +147,8 @@ describe('Movies', () => {
                   res.should.have.status(200);
                   res.should.be.json;
                   res.body.record.should.be.a('object');
+                  res.body.record.should.have.property('_id');
+                  res.body.record.should.have.property('title');
                   done();
                   // console.log('\n***************************');
                   // console.log(res.body.record);
