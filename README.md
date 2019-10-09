@@ -21,7 +21,7 @@
     ```    
   - Criar e iniciar os containers (nodejs and mongodb):    
     ```
-    docker-compose up -d
+    docker-compose up ou docker-compose up -d
     ```    
   - Executar os testes:  
     ```
@@ -40,6 +40,16 @@
     - mocha
     - chai
     - chai-http
+    
+##### Observações:
+
+> 1. Se não estiver utilizando o Docker Quickstart Terminal do windows, 
+é necessário verificar o .env e substituir o SERVER_TEST do IP para localhost.
+
+> 2. Se optar por não utilizar docker para executar o projeto,
+basta substituir o MONGO_URL no .env (por exemplo, para uma base no mongodb atlas)
+e executar o comando npm start ou yarn start (ou ainda npm dev ou yarn dev caso 
+queira executar com o nodemon). 
     
 ___
 
